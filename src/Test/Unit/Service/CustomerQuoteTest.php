@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Coddin\CartBridge\Test\Unit\Service;
 
 use Coddin\CartBridge\Service\CustomerQuote;
+use Magento\Catalog\Model\Product;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartManagementInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
-use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Api\GuestCartManagementInterface;
 use Magento\Quote\Model\MaskedQuoteIdToQuoteId;
 use Magento\Quote\Model\Quote;
@@ -41,7 +41,6 @@ final class CustomerQuoteTest extends TestCase
     }
 
     /**
-     * @covers CustomerQuote::getQuote
      * @noinspection PhpUnhandledExceptionInspection
      */
     public function testGetQuoteGuestWithoutExistingCart(): void
@@ -88,7 +87,6 @@ final class CustomerQuoteTest extends TestCase
     }
 
     /**
-     * @covers CustomerQuote::getQuote
      * @noinspection PhpUnhandledExceptionInspection
      */
     public function testGetQuoteGuestWithExistingCart(): void
@@ -117,7 +115,6 @@ final class CustomerQuoteTest extends TestCase
     }
 
     /**
-     * @covers CustomerQuote::getQuote
      * @noinspection PhpUnhandledExceptionInspection
      */
     public function testGetQuoteCustomerWithoutExistingCart(): void
@@ -159,7 +156,6 @@ final class CustomerQuoteTest extends TestCase
     }
 
     /**
-     * @covers CustomerQuote::getQuote
      * @noinspection PhpUnhandledExceptionInspection
      */
     public function testGetQuoteCustomerWithExistingCart(): void
@@ -185,6 +181,27 @@ final class CustomerQuoteTest extends TestCase
         $quote = $customerQuote->getQuote();
 
         self::assertEquals($quoteMock, $quote);
+    }
+
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public function testAddProduct(): void
+    {
+        $customerQuote = $this->setupCustomerQuote();
+
+        $quoteMock = $this->createQuote();
+        $productMock = $this->createMock(Product::class);
+
+        $quoteMock
+            ->expects(self::once())
+            ->method('addProduct')
+            ->with($productMock);
+
+        $this->quoteRepository
+            ->expects(self::once())
+            ->method('save')
+            ->with($quoteMock);
+
+        $customerQuote->addProduct($quoteMock, $productMock);
     }
 
     private function setupCustomerQuote(): CustomerQuote
