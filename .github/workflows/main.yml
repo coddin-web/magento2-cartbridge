@@ -30,4 +30,4 @@ jobs:
           composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition ./../mag2
 
       - name: PHPUnit
-        run: ./../mag2/vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist Test/Unit
+        run: ./../mag2/vendor/bin/phpunit -c ./../mag2/dev/tests/unit/phpunit.xml.dist Test/Unit
