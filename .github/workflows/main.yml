@@ -35,4 +35,12 @@ jobs:
           cp -r src/* ./../mag2/app/code/Coddin/CartBridge
 
       - name: PHPUnit
-        run: ./../mag2/vendor/bin/phpunit -c ./../mag2/dev/tests/unit/phpunit.xml.dist ./../mag2/app/code/Coddin/CartBridge/Test/Unit
+        run: ./../mag2/vendor/bin/phpunit -c ./../mag2/dev/tests/unit/phpunit.xml.dist ./../mag2/app/code/Coddin/CartBridge/Test/Unit --coverage-clover clover.xml
+
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
