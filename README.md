@@ -1,5 +1,6 @@
 ![build](https://github.com/coddin-web/magento2-cartbridge/actions/workflows/main.yml/badge.svg?event=push)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![codecov](https://codecov.io/gh/coddin-web/magento2-cartbridge/branch/main/graph/badge.svg?token=M03T8HVKNW)](https://codecov.io/gh/coddin-web/magento2-cartbridge)
 
 # Magento 2 CartBridge
 A module to easily add items to an existing Guest/Customer cart programmatically
