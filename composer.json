@@ -14,13 +14,7 @@
       "registration.php"
     ],
     "psr-4": {
-      "Coddin\\CartBridge\\": ""
-    }
-  },
-  "repositories": {
-    "repo.magento.com": {
-      "type": "composer",
-      "url": "https://repo.magento.com/"
+      "Coddin\\CartBridge\\": "src/"
     }
   }
 }
