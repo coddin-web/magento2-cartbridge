@@ -11,3 +11,11 @@ xhrFields: {
 ```
 
 Also, as an example / useful endpoint, a "getCartId" frontname has been added to get the current Cart/QuoteID for the Guest/Customer
+
+### Testing
+
+The tests can be run within a Magento 2 instance by using this command:
+
+```
+./vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/coddin/magento2-cartbridge/Test/Unit
+```
