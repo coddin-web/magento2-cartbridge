@@ -40,7 +40,7 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./../mag2/clover.xml
+          files: ./clover.xml
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
