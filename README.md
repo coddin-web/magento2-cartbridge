@@ -1,4 +1,4 @@
-![build](https://github.com/coddin-web/magento2-cartbridge/workflows/main.yml/badge.svg?event=push)
+![build](https://github.com/coddin-web/magento2-cartbridge/actions/workflows/main.yml/badge.svg?event=push)
 
 # Magento 2 CartBridge
 A module to easily add items to an existing Guest/Customer cart programmatically
