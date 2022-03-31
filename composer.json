@@ -1,0 +1,20 @@
+{
+  "name": "coddin/magento2-cartbridge",
+  "description": "CartBridge by Coddin",
+  "require": {
+    "php": ">=7.4.0"
+  },
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+    "MIT"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Coddin\\CartBridge\\": ""
+    }
+  }
+}
