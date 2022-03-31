@@ -29,5 +29,10 @@ jobs:
           mkdir ./../mag2
           composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition ./../mag2
 
+      - name: PHPUnit preparation
+        run: |
+          mkdir -p ./../mag2/app/code/Coddin/CartBridge
+          cp -r src/* ./../mag2/app/code/Coddin/CartBridge
+
       - name: PHPUnit
-        run: ./../mag2/vendor/bin/phpunit -c ./../mag2/dev/tests/unit/phpunit.xml.dist src/Test/Unit
+        run: ./../mag2/vendor/bin/phpunit -c ./../mag2/dev/tests/unit/phpunit.xml.dist ./../mag2/app/code/Coddin/CartBridge/Test/Unit
