@@ -26,7 +26,8 @@ jobs:
       - name: Install Magento 2
         run: |
           composer config http-basic.repo.magento.com ${{ secrets.MAG_MARKETPLACE_USERNAME }} ${{ secrets.MAG_MARKETPLACE_PASSWORD }}
-          composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
+          mkdir ./../mag2
+          composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition ./../mag2
 
       - name: PHPUnit
-        run: ./vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist Test/Unit
+        run: ./../mag2/vendor/bin/phpunit -c dev/tests/unit/phpunit.xml.dist Test/Unit
