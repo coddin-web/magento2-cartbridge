@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 use Magento\Framework\Component\ComponentRegistrar;
 
+/**
+ * @codeCoverageIgnore
+ */
 ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
     'Coddin_CartBridge',

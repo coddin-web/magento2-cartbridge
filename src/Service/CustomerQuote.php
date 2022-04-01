@@ -82,9 +82,12 @@ class CustomerQuote
     /**
      * @throws LocalizedException
      */
-    public function addProduct(CartInterface $quote, ProductInterface $product): void
-    {
-        $quote->addProduct($product);
+    public function addProduct(
+        CartInterface $quote,
+        ProductInterface $product,
+        int $quantity = 1
+    ): void {
+        $quote->addProduct($product, $quantity);
 
         $this->quoteRepository->save($quote);
     }
