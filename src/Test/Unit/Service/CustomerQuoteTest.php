@@ -103,15 +103,32 @@ final class CustomerQuoteTest extends TestCase
             ->method('isLoggedIn')
             ->willReturn(false);
 
-        $quoteMock = $this->createQuote();
-        $quoteMock
+        $quoteMockNotFullyLoaded = $this->createQuote();
+        $quoteMockNotFullyLoaded
             ->expects(self::exactly(2))
             ->method('getId')
-            ->willReturn(1);
+            ->willReturn(null, 456);
 
         $this->checkoutSession
             ->expects(self::once())
             ->method('getQuote')
+            ->willReturn($quoteMockNotFullyLoaded);
+
+        $this->quoteRepository
+            ->expects(self::once())
+            ->method('save')
+            ->with($quoteMockNotFullyLoaded);
+
+        $quoteMock = $this->createQuote();
+        $quoteMock
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn(456);
+
+        $this->quoteRepository
+            ->expects(self::once())
+            ->method('get')
+            ->with(456)
             ->willReturn($quoteMock);
 
         $quote = $customerQuote->getQuote();
@@ -177,15 +194,32 @@ final class CustomerQuoteTest extends TestCase
             ->method('isLoggedIn')
             ->willReturn(true);
 
-        $quoteMock = $this->createQuote();
-        $quoteMock
+        $quoteMockNotFullyLoaded = $this->createQuote();
+        $quoteMockNotFullyLoaded
             ->expects(self::exactly(2))
             ->method('getId')
-            ->willReturn(1);
+            ->willReturn(null, 456);
 
         $this->checkoutSession
             ->expects(self::once())
             ->method('getQuote')
+            ->willReturn($quoteMockNotFullyLoaded);
+
+        $this->quoteRepository
+            ->expects(self::once())
+            ->method('save')
+            ->with($quoteMockNotFullyLoaded);
+
+        $quoteMock = $this->createQuote();
+        $quoteMock
+            ->expects(self::once())
+            ->method('getId')
+            ->willReturn(456);
+
+        $this->quoteRepository
+            ->expects(self::once())
+            ->method('get')
+            ->with(456)
             ->willReturn($quoteMock);
 
         $quote = $customerQuote->getQuote();
