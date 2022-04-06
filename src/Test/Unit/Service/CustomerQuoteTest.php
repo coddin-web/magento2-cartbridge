@@ -68,18 +68,23 @@ final class CustomerQuoteTest extends TestCase
             ->with('maskedID1234')
             ->willReturn(123);
 
-        $this->checkoutSession
-            ->expects(self::once())
-            ->method('setQuoteId')
-            ->with(123);
-
         $quoteMock = $this->createQuote();
+
+        $quoteMock
+            ->expects(self::exactly(2))
+            ->method('getId')
+            ->willReturn(123, 123);
 
         $this->quoteRepository
             ->expects(self::once())
             ->method('get')
             ->with(123)
             ->willReturn($quoteMock);
+
+        $this->checkoutSession
+            ->expects(self::once())
+            ->method('setQuoteId')
+            ->with(123);
 
         $quote = $customerQuote->getQuote();
 
@@ -100,8 +105,8 @@ final class CustomerQuoteTest extends TestCase
 
         $quoteMock = $this->createQuote();
         $quoteMock
-            ->expects(self::once())
-            ->method('getEntityId')
+            ->expects(self::exactly(2))
+            ->method('getId')
             ->willReturn(1);
 
         $this->checkoutSession
@@ -144,6 +149,11 @@ final class CustomerQuoteTest extends TestCase
 
         $quoteMock = $this->createQuote();
 
+        $quoteMock
+            ->expects(self::exactly(2))
+            ->method('getId')
+            ->willReturn(123, 123);
+
         $this->quoteRepository
             ->expects(self::once())
             ->method('get')
@@ -169,8 +179,8 @@ final class CustomerQuoteTest extends TestCase
 
         $quoteMock = $this->createQuote();
         $quoteMock
-            ->expects(self::once())
-            ->method('getEntityId')
+            ->expects(self::exactly(2))
+            ->method('getId')
             ->willReturn(1);
 
         $this->checkoutSession

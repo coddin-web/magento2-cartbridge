@@ -54,27 +54,32 @@ class CustomerQuote
             try {
                 // User is logged in and has a filled cart
                 $quote = $this->checkoutSession->getQuote();
-                $quoteId = $quote->getEntityId();
             } catch (NoSuchEntityException | LocalizedException $e) {
-                // User is logged in but has an empty cart
+                // User is logged in but has an empty cart or
+                // something went wrong when trying to get the customer cart
                 $quoteId = $this->cartManagement->createEmptyCartForCustomer($this->customerSession->getCustomerId());
+                $quote = $this->quoteRepository->get($quoteId);
             }
         } else {
             try {
-                // User is not logged in and has a filled cart
+                // User is not logged in and has a filled or empty cart
                 $quote = $this->checkoutSession->getQuote();
-                $quoteId = $quote->getEntityId();
             } catch (NoSuchEntityException | LocalizedException $e) {
-                // User is not logged in and has an empty cart
+                // User is not logged in and has an empty cart or
+                // something went wrong when trying to get the guest cart
                 $cartApiId = $this->guestCartManagement->createEmptyCart();
                 $quoteId = $this->maskedQuoteIdToQuoteId->execute($cartApiId);
-                $this->checkoutSession->setQuoteId($quoteId);
+                $quote = $this->quoteRepository->get($quoteId);
             }
         }
 
-        if ($quote === null) {
-            $quote = $this->quoteRepository->get($quoteId);
+        // Always return a fully loaded Quote
+        if ($quote->getId() === null) {
+            $this->quoteRepository->save($quote);
+            $quote = $this->quoteRepository->get($quote->getId());
         }
+
+        $this->checkoutSession->setQuoteId($quote->getId());
 
         return $quote;
     }
