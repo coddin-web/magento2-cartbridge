@@ -90,9 +90,9 @@ class CustomerQuote
     public function addProduct(
         CartInterface $quote,
         ProductInterface $product,
-        int $quantity = 1
+        ?\Magento\Framework\DataObject $request = null
     ): void {
-        $quote->addProduct($product, $quantity);
+        $quote->addProduct($product, $request);
 
         $this->quoteRepository->save($quote);
     }
