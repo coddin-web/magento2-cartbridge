@@ -14,6 +14,12 @@ xhrFields: {
 },
 ```
 
+### Installation
+
+```shell
+$ composer require coddin/magento2-cartbridge
+```
+
 ### Testing
 
 The tests can be run within a Magento 2 instance by using this command:
